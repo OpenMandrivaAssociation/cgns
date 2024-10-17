@@ -10,7 +10,7 @@ Release: %mkrel 4
 Summary: Computational fluid dynamics notation system
 License: zlib
 Group:   Sciences/Physics
-URL:     http://cgns.github.io
+URL:     https://cgns.github.io
 Source0: https://github.com/CGNS/CGNS/archive/%{srcname}-%{version}.tar.gz
 
 Patch0:  cgns-3.3.1-staticf2c.patch
