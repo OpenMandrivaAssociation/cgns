@@ -9,7 +9,7 @@
 
 Name:    cgns
 Version: 4.5.0
-Release: 1
+Release: 2
 Summary: Computational fluid dynamics notation system
 License: zlib
 Group:   Sciences/Physics
