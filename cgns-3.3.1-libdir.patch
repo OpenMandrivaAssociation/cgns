@@ -1,29 +1,32 @@
---- CGNS-3.3.1/src/CMakeLists.txt.orig	2017-10-10 23:05:02.279578907 +0200
-+++ CGNS-3.3.1/src/CMakeLists.txt	2017-10-10 23:12:08.581962625 +0200
-@@ -66,7 +66,7 @@
- set(CFGFLAGS "")
- set(LIBS "")
+diff -up CGNS-4.5.0/src/CMakeLists.txt.1~ CGNS-4.5.0/src/CMakeLists.txt
+--- CGNS-4.5.0/src/CMakeLists.txt.1~	2025-02-12 03:43:11.689512857 +0100
++++ CGNS-4.5.0/src/CMakeLists.txt	2025-02-12 03:44:12.895413336 +0100
+@@ -703,8 +703,8 @@ endif ()
+ # for windows, need to install both cgnsdll.dll and cgnsdll.lib
+ install (TARGETS ${install_targets}
+          EXPORT cgns-targets
+-         LIBRARY DESTINATION lib COMPONENT libraries
+-         ARCHIVE DESTINATION lib COMPONENT libraries
++         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT libraries
++         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT libraries
+          RUNTIME DESTINATION bin COMPONENT libraries
+          INCLUDES DESTINATION include)
  
--file(TO_NATIVE_PATH ${CMAKE_INSTALL_PREFIX}/lib LIBDIR)
-+file(TO_NATIVE_PATH ${CMAKE_INSTALL_LIBDIR} LIBDIR)
- file(TO_NATIVE_PATH ${CMAKE_INSTALL_PREFIX}/include INCLUDEDIR)
- file(TO_NATIVE_PATH ${CMAKE_C_COMPILER} CC)
- if (WIN32)
---- CGNS-3.3.1/src/CMakeLists.txt.orig	2017-10-10 23:14:35.081218302 +0200
-+++ CGNS-3.3.1/src/CMakeLists.txt	2017-10-10 23:20:02.130718809 +0200
-@@ -559,12 +559,12 @@
- endif(CGNS_BUILD_SHARED)
- 
- # Set the install path of the static library
--install(TARGETS cgns_static ARCHIVE DESTINATION lib)
-+install(TARGETS cgns_static ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}")
- # Set the install path of the shared library
- if(CGNS_BUILD_SHARED)
-   # for windows, need to install both cgnsdll.dll and cgnsdll.lib
--  install (TARGETS cgns_shared LIBRARY DESTINATION lib
--                               ARCHIVE DESTINATION lib
-+  install (TARGETS cgns_shared LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-+                               ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-                                RUNTIME DESTINATION bin)
- endif(CGNS_BUILD_SHARED)
+@@ -756,14 +756,14 @@ write_basic_package_version_file(
+ configure_package_config_file(
+   ${CMAKE_CURRENT_SOURCE_DIR}/cgns-config.cmake.in
+   ${CMAKE_CURRENT_BINARY_DIR}/cgns-config.cmake
+-  INSTALL_DESTINATION lib/cmake/cgns )
++  INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/cgns" )
+ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cgns-config-version.cmake
+               ${CMAKE_CURRENT_BINARY_DIR}/cgns-config.cmake
+-	DESTINATION lib/cmake/cgns)
++	DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/cgns")
+ install(EXPORT cgns-targets
+ 	FILE cgns-targets.cmake
+ 	NAMESPACE CGNS::
+-	DESTINATION lib/cmake/cgns
++	DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/cgns"
+ 	)
+ #endif()
  

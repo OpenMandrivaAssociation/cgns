@@ -1,3 +1,6 @@
+# Can't mix clang LTO with gcc (gfortran) LTO
+%define _disable_lto 1
+
 %define major           3.3
 %define libname         %mklibname %{name} %{major}
 %define libname_devel   %mklibname %{name} -d
@@ -5,17 +8,16 @@
 %define srcname         CGNS
 
 Name:    cgns
-Version: 3.3.1
-Release: %mkrel 4
+Version: 4.5.0
+Release: 1
 Summary: Computational fluid dynamics notation system
 License: zlib
 Group:   Sciences/Physics
 URL:     https://cgns.github.io
-Source0: https://github.com/CGNS/CGNS/archive/%{srcname}-%{version}.tar.gz
+Source0: https://github.com/CGNS/CGNS/archive/refs/tags/v%{version}.tar.gz
 
-Patch0:  cgns-3.3.1-staticf2c.patch
 Patch1:  cgns-3.3.1-libdir.patch
-Patch2:  no-matherr.patch
+Patch2:  cgns-4.5.0-buildfix.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-gfortran
@@ -69,7 +71,7 @@ compile C and Fortran programs that use CNGS.
 	-DCGNS_ENABLE_HDF5:BOOL=ON                                  \
 	-DCGNS_BUILD_SHARED:BOOL=ON                                 \
 	-DHDF5_NEED_ZLIB:BOOL=ON                                    \
-%ifarch x86_64 aarch64
+%ifarch %{x86_64} %{aarch64}
         -DCGNS_ENABLE_64BIT:BOOL=ON
 %endif
 
